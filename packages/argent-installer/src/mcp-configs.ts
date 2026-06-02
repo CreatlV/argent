@@ -1184,3 +1184,15 @@ export function copyRulesAndAgents(
 
   return results;
 }
+
+export function summarizeRulesAndAgentsCopyForTelemetry(results: readonly string[]): {
+  copied_count: number;
+  failed_count: number;
+} {
+  return {
+    copied_count: results.filter(
+      (line) => line.includes("Copied ") || line.includes("Injected rules")
+    ).length,
+    failed_count: results.filter((line) => line.includes("Could not ")).length,
+  };
+}
